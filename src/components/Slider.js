@@ -9,11 +9,29 @@ const Slider = () => {
 
   const handleNext = () => {
     setIndex((prev) => prev + 1)
-  }
+  };
 
   const handlePrev = () => {
-    setIndex((prev) => prev - 1);
+    setIndex((prev) => prev - 1)
   };
+
+  useEffect(() => {
+    const lastIndex = people.length - 1
+    if (index < 0) {
+      setIndex(lastIndex)
+    }
+    if (index > lastIndex) {
+      setIndex(0)
+    }
+  }, [index, people]);
+
+  useEffect(() => {
+    let slider = setInterval(() => {
+      setIndex(index + 1)
+    }, 7000)
+    return () => clearInterval(slider)
+  }, [index])
+
   return (
     <section className="section">
       <div className="title">
